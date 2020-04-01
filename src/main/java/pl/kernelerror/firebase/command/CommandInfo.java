@@ -11,5 +11,8 @@ public @interface CommandInfo {
     String name();
     String permission() default "";
     String usage() default "";
-    String[] aliases();
+    String[] aliases() default {};
+
+    String noPermissionMessage() default "";
+    String incorrectUsageMessage() default "";
 }

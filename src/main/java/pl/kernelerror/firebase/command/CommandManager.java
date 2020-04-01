@@ -9,8 +9,6 @@ import java.util.Arrays;
 public class CommandManager extends CommandManagerBase {
     private Plugin plugin;
 
-    private String noPermissionMessage;
-
     public CommandManager(Plugin plugin) {
         this.plugin = plugin;
     }
@@ -25,20 +23,16 @@ public class CommandManager extends CommandManagerBase {
         pluginCommand.setExecutor((commandSender, command1, label, arguments) -> {
             if (!commandInfo.permission().equals("") && commandSender.hasPermission(commandInfo.permission())) {
                 try {
-                    command.execute(commandSender, new CommandContext(arguments));
+                    command.execute(commandSender, new CommandContext(commandInfo, arguments));
                 } catch (ValidationException exception) {
                     commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', exception.getMessage()));
                 }
             } else {
-                commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', noPermissionMessage));
+                commandSender.sendMessage(ChatColor.translateAlternateColorCodes('&', commandInfo.noPermissionMessage()));
             }
 
             return true;
         });
         commandMap.register(commandInfo.name(), pluginCommand);
-    }
-
-    public void setNoPermissionMessage(String noPermissionMessage) {
-        this.noPermissionMessage = noPermissionMessage;
     }
 }
