@@ -5,11 +5,15 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.panda_lang.utilities.inject.DependencyInjection;
+import org.panda_lang.utilities.inject.Injector;
+import org.panda_lang.utilities.inject.InjectorController;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 
 public abstract class CommandManagerBase {
+    protected final Injector injector = DependencyInjection.createInjector();
     protected CommandMap commandMap;
 
     public CommandManagerBase() {
@@ -24,7 +28,7 @@ public abstract class CommandManagerBase {
         }
     }
 
-    public abstract void registerCommand(Command command);
+    public abstract void registerCommand(Class<? extends Command> commandClass, InjectorController controller);
 
     protected PluginCommand createPluginCommand(Plugin plugin, String name) {
         try {
