@@ -9,16 +9,16 @@ import org.panda_lang.utilities.inject.InjectorException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
-public class CommandManager extends CommandManagerBase {
+public class SimpleCommandManager extends CommandManagerBase {
     private Plugin plugin;
 
-    public CommandManager(Plugin plugin) {
+    public SimpleCommandManager(Plugin plugin) {
         super();
 
         this.plugin = plugin;
     }
 
-    public CommandManager(Plugin plugin, InjectorController controller) {
+    public SimpleCommandManager(Plugin plugin, InjectorController controller) {
         super(controller);
 
         this.plugin = plugin;
