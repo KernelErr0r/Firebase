@@ -13,6 +13,14 @@ public class CommandManager extends CommandManagerBase {
     private Plugin plugin;
 
     public CommandManager(Plugin plugin) {
+        super();
+
+        this.plugin = plugin;
+    }
+
+    public CommandManager(Plugin plugin, InjectorController controller) {
+        super(controller);
+
         this.plugin = plugin;
     }
 
