@@ -26,16 +26,15 @@ public class SimpleCommandManager extends CommandManagerBase {
 
     @Override
     public void registerCommand(Class<? extends Command> commandClass, InjectorController controller) {
-        injector.fork(controller);
-
         try {
-            Command command = injector.newInstance(commandClass);
+            Command command = injector.fork(controller)
+                    .newInstance(commandClass);
             CommandInfo commandInfo = commandClass.getDeclaredAnnotation(CommandInfo.class);
             PluginCommand pluginCommand = createPluginCommand(plugin, commandInfo.name());
 
             pluginCommand.setAliases(Arrays.asList(commandInfo.aliases()));
             pluginCommand.setExecutor((commandSender, command1, label, arguments) -> {
-                if (!commandInfo.permission().equals("") && commandSender.hasPermission(commandInfo.permission())) {
+                if (commandInfo.permission().equals("") || commandSender.hasPermission(commandInfo.permission())) {
                     try {
                         command.execute(commandSender, new CommandContext(commandInfo, arguments));
                     } catch (ValidationException exception) {
