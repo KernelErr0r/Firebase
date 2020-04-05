@@ -49,7 +49,7 @@ public class SimpleCommandManager extends CommandManagerBase {
             });
             commandMap.register(commandInfo.name(), pluginCommand);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException | InjectorException exception) {
-            throw new RuntimeException("Something went wrong");
+            throw new CommandException("Something went wrong during the registration of the command", exception);
         }
     }
 }

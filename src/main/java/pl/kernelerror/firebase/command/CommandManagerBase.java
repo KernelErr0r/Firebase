@@ -35,8 +35,8 @@ public abstract class CommandManagerBase {
             Constructor<PluginCommand> pluginCommandConstructor = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
             pluginCommandConstructor.setAccessible(true);
             return pluginCommandConstructor.newInstance(name, plugin);
-        } catch (Exception _) {
-            throw new RuntimeException("Something went wrong");
+        } catch (Exception exception) {
+            throw new CommandException("Something went wrong during the creation of an instance of the PluginCommand", exception);
         }
     }
 
@@ -47,8 +47,8 @@ public abstract class CommandManagerBase {
             Field commandMapField = commandManagerClass.getDeclaredField("commandMap");
             commandMapField.setAccessible(true);
             commandMap = (CommandMap) commandMapField.get(pluginManager);
-        } catch (Exception _) {
-            throw new RuntimeException("Something went wrong");
+        } catch (Exception exception) {
+            throw new CommandException("Something went wrong during the initialization of the command map", exception);
         }
     }
 }
